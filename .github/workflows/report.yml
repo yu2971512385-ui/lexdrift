@@ -1,0 +1,53 @@
+name: report
+
+# Libraries release, languages keep shipping keywords, so the report is only
+# worth anything if it is re-run. This does that weekly and commits the result,
+# which is also what the GitHub Pages site serves.
+
+on:
+  schedule:
+    - cron: "17 4 * * 1"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  refresh:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.13"
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+      - uses: actions/setup-go@v5
+        with:
+          go-version: "1.23"
+
+      - name: Install lexdrift
+        run: pip install -e .
+
+      - name: Install the JavaScript highlighters at their latest releases
+        run: npm install --no-audit --no-fund highlight.js@latest prismjs@latest ace-code@latest
+        working-directory: src/lexdrift/js
+
+      - name: Regenerate the report
+        run: |
+          lexdrift libs
+          lexdrift check --format markdown > REPORT.md
+          python scripts/build_site.py
+
+      - name: Commit if anything drifted
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          if git diff --quiet -- REPORT.md docs/index.md; then
+            echo "no change"
+            exit 0
+          fi
+          git add REPORT.md docs/index.md
+          git commit -m "Refresh the report against current library releases"
+          git push
