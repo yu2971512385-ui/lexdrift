@@ -54,13 +54,25 @@ text, or the library emits an error token on valid code.
 ## Install
 
 ```console
-pip install lexdrift            # ready to use: the Pygments adapter is included
-cd "$(python -c 'import lexdrift, pathlib; print(pathlib.Path(lexdrift.__file__).parent / "js")')"
-npm install                     # optional: highlight.js and Prism adapters
+pip install git+https://github.com/yu2971512385-ui/lexdrift
 ```
 
-Node is only needed for the JavaScript libraries; without it lexdrift checks
-whatever is available and says why the rest was skipped.
+That is enough to check Pygments. The other four libraries live in other
+ecosystems, and lexdrift drives them where they are:
+
+| library | needs | how to enable |
+| --- | --- | --- |
+| Pygments | nothing | included |
+| highlight.js, Prism, Ace | Node | `npm install` in the bundled `js` directory |
+| chroma | Go | nothing; the first run fetches chroma into the module cache |
+
+```console
+cd "$(python -c 'import lexdrift, pathlib; print(pathlib.Path(lexdrift.__file__).parent / "js")')"
+npm install
+```
+
+Whatever is missing is simply reported as unavailable, with the reason --
+`lexdrift libs` shows what this machine can check.
 
 ## Use
 
@@ -79,8 +91,8 @@ A current run of the bundled corpus lives in [REPORT.md](REPORT.md).
 
 ## What it found
 
-The corpus that ships with 0.1.0 covers 46 features across nine languages.
-Against current releases of three libraries it finds gaps such as:
+The corpus covers 46 features across nine languages. Against current
+releases of five libraries it finds gaps such as:
 
 | library | gap |
 | --- | --- |
@@ -89,7 +101,9 @@ Against current releases of three libraries it finds gaps such as:
 | Pygments | TypeScript 4.9 `satisfies` |
 | highlight.js | Go 1.18 `any`/`comparable` and Go 1.21 `clear`/`min`/`max` |
 | Prism | C# 11 raw string literals: the third quote of `"""` is left as plain text |
-| all three | Rust 1.77 C string literals: `c"..."` loses its `c` prefix |
+| Ace | C++20 `consteval`/`constinit`/`concept`, PHP 8.1 `enum`, PHP 7.4 `fn` |
+| chroma | C++20 `constinit`, Go `any`/`comparable`, TypeScript `satisfies` |
+| most of them | Rust 1.77 C string literals: `c"..."` loses its `c` prefix |
 
 Some of these are already reported upstream (pull requests open at the time
 of writing):
@@ -156,8 +170,9 @@ register(MyAdapter.name, MyAdapter)
 `tokenize` must return every character of the input, whitespace included --
 lexdrift locates features by character offset. Libraries that live in another
 runtime can follow [`adapters/node.py`](src/lexdrift/adapters/node.py), which
-drives a small script through a subprocess. chroma (Go), Rouge (Ruby) and Ace
-are obvious next candidates.
+drives a small script through a subprocess, or
+[`adapters/chroma.py`](src/lexdrift/adapters/chroma.py), which runs a Go
+program. Rouge (Ruby), Shiki and Tree-sitter are obvious next candidates.
 
 ## Limitations
 

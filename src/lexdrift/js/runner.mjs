@@ -1,7 +1,7 @@
 // Tokenise snippets with a JavaScript highlighting library.
 //
 // Protocol: one JSON request on stdin, one JSON response on stdout.
-//   in : {"library": "highlightjs"|"prism", "requests": [{"language": "go", "code": "..."}]}
+//   in : {"library": "highlightjs"|"prism"|"ace", "requests": [{"language": "go", "code": "..."}]}
 //   out: {"version": "11.12.0", "results": [[{"text": "var", "raw": "keyword"}, ...]]}
 // Errors are reported as {"error": "..."} with a non-zero exit code.
 
@@ -121,6 +121,60 @@ async function runPrism(requests) {
   return { version, results };
 }
 
+// Ace ships its grammars as plain CommonJS modules (the `ace-code` package),
+// so they can be tokenised without a browser. Its tokeniser works line by
+// line and carries a state between lines, which is threaded through here.
+const ACE_MODES = {
+  go: "golang",
+  javascript: "javascript",
+  typescript: "typescript",
+  python: "python",
+  java: "java",
+  csharp: "csharp",
+  php: "php",
+  rust: "rust",
+  cpp: "c_cpp",
+  c: "c_cpp",
+  ruby: "ruby",
+  kotlin: "kotlin",
+  swift: "swift",
+  scala: "scala",
+};
+
+async function runAce(requests) {
+  const { createRequire } = await import("node:module");
+  const require = createRequire(import.meta.url);
+  let version = "";
+  try {
+    version = require("ace-code/package.json").version ?? "";
+  } catch {
+    version = "";
+  }
+
+  const results = requests.map(({ language, code }) => {
+    const modeName = ACE_MODES[language];
+    if (!modeName) return null;
+    let Mode;
+    try {
+      ({ Mode } = require(`ace-code/src/mode/${modeName}`));
+    } catch {
+      return null;
+    }
+    const tokenizer = new Mode().getTokenizer();
+    const out = [];
+    const lines = code.split("\n");
+    let state = "start";
+    lines.forEach((line, index) => {
+      const result = tokenizer.getLineTokens(line, state);
+      state = result.state;
+      for (const token of result.tokens) out.push({ text: token.value, raw: token.type });
+      if (index < lines.length - 1) out.push({ text: "\n", raw: "text" });
+    });
+    return out;
+  });
+  return { version, results };
+}
+
 async function main() {
   const payload = JSON.parse(await readStdin());
   const requests = payload.requests ?? [];
@@ -131,6 +185,9 @@ async function main() {
       break;
     case "prism":
       response = await runPrism(requests);
+      break;
+    case "ace":
+      response = await runAce(requests);
       break;
     default:
       throw new Error(`unknown library: ${payload.library}`);

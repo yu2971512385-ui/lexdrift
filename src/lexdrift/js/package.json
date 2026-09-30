@@ -5,6 +5,7 @@
   "description": "Node side of lexdrift: tokenises snippets with JavaScript highlighting libraries",
   "type": "module",
   "dependencies": {
+    "ace-code": "^1.44.0",
     "highlight.js": "^11.9.0",
     "prismjs": "^1.29.0"
   }

@@ -41,7 +41,7 @@ lexdrift = "lexdrift.cli:main"
 where = ["src"]
 
 [tool.setuptools.package-data]
-lexdrift = ["corpus/*.yaml", "js/*.mjs", "js/package.json"]
+lexdrift = ["corpus/*.yaml", "js/*.mjs", "js/package.json", "go/*.go", "go/go.mod", "go/go.sum"]
 
 [tool.pytest.ini_options]
 testpaths = ["tests"]

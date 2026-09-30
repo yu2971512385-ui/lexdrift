@@ -94,6 +94,33 @@ PRISM_CATEGORY_MAP = {
 }
 
 
+ACE_CATEGORY_MAP = {
+    "": "plain",
+    "text": "plain",
+    "identifier": "plain",
+    "keyword": "keyword",
+    "keyword.operator": "operator",
+    "storage": "keyword",
+    "storage.type": "type",
+    "support.type": "type",
+    "support.class": "type",
+    "support.function": "builtin",
+    "support.constant": "constant",
+    "constant": "constant",
+    "constant.numeric": "number",
+    "constant.language": "constant",
+    "string": "string",
+    "comment": "comment",
+    "variable": "other",
+    "entity": "other",
+    "meta": "other",
+    "punctuation": "other",
+    "paren": "other",
+    "invalid": "error",
+    "invalid.illegal": "error",
+}
+
+
 def _runner_script() -> Path:
     return Path(str(resources.files(__package__).parent / "js" / "runner.mjs"))
 
@@ -210,5 +237,15 @@ class PrismAdapter(_NodeAdapter):
     package = "prismjs"
 
 
+class AceAdapter(_NodeAdapter):
+    name = "ace"
+    label = "Ace"
+    url = "https://github.com/ajaxorg/ace"
+    library_key = "ace"
+    category_map = ACE_CATEGORY_MAP
+    package = "ace-code"
+
+
 register(HighlightJsAdapter.name, HighlightJsAdapter)
 register(PrismAdapter.name, PrismAdapter)
+register(AceAdapter.name, AceAdapter)

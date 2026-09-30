@@ -14,7 +14,7 @@ from .base import (  # noqa: F401
     map_category,
     register,
 )
-from . import node, pygments_adapter  # noqa: F401  (import for the side effect)
+from . import chroma, node, pygments_adapter  # noqa: F401  (import for the side effect)
 
 __all__ = [
     "Adapter",
