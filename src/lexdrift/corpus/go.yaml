@@ -1,0 +1,100 @@
+# Go predeclared identifiers and type-constraint syntax.
+#
+# `baseline` names an older construct of the same shape. If a library leaves
+# the baseline unstyled too, the feature is reported as a style choice rather
+# than as drift.
+language: go
+features:
+  - id: go-any
+    name: "predeclared type `any`"
+    since: "1.18"
+    spec: https://go.dev/ref/spec#Predeclared_identifiers
+    snippet: |
+      var payload any = 1
+    token: any
+    expect: [type, keyword, builtin]
+    baseline:
+      snippet: |
+        var failure error = nil
+      token: error
+
+  - id: go-comparable
+    name: "predeclared type `comparable`"
+    since: "1.18"
+    spec: https://go.dev/ref/spec#Predeclared_identifiers
+    snippet: |
+      type Set[E comparable] map[E]struct{}
+    token: comparable
+    expect: [type, keyword, builtin]
+    baseline:
+      snippet: |
+        type Set[E string] map[E]struct{}
+      token: string
+
+  - id: go-clear
+    name: "builtin `clear`"
+    since: "1.21"
+    spec: https://go.dev/ref/spec#Clear
+    snippet: |
+      func reset(m map[string]int) {
+      	clear(m)
+      }
+    token: clear
+    expect: [builtin, keyword]
+    baseline:
+      snippet: |
+        func size(m map[string]int) int {
+        	return len(m)
+        }
+      token: len
+
+  - id: go-min
+    name: "builtin `min`"
+    since: "1.21"
+    spec: https://go.dev/ref/spec#Min_and_max
+    snippet: |
+      func lower(a, b int) int {
+      	return min(a, b)
+      }
+    token: min
+    expect: [builtin, keyword]
+    baseline:
+      snippet: |
+        func size(m map[string]int) int {
+        	return len(m)
+        }
+      token: len
+
+  - id: go-max
+    name: "builtin `max`"
+    since: "1.21"
+    spec: https://go.dev/ref/spec#Min_and_max
+    snippet: |
+      func upper(a, b int) int {
+      	return max(a, b)
+      }
+    token: max
+    expect: [builtin, keyword]
+    baseline:
+      snippet: |
+        func size(m map[string]int) int {
+        	return len(m)
+        }
+      token: len
+
+  - id: go-constraint-tilde
+    name: "`~T` in a type constraint"
+    since: "1.18"
+    spec: https://go.dev/ref/spec#General_interfaces
+    snippet: |
+      type Integer interface {
+      	~int | ~int64
+      }
+    token: "~"
+    note: >-
+      libraries differ on whether ~ is an operator or punctuation, so any
+      recognised category counts
+    baseline:
+      snippet: |
+        var mask = a &^ b
+      token: "&^"

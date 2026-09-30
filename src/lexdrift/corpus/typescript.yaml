@@ -1,0 +1,74 @@
+language: typescript
+features:
+  - id: ts-satisfies
+    name: "`satisfies` operator"
+    since: "4.9"
+    spec: https://www.typescriptlang.org/docs/handbook/release-notes/typescript-4-9.html
+    snippet: |
+      const config = { port: 8080 } satisfies Record<string, number>;
+    token: satisfies
+    expect: [keyword, operator]
+    baseline:
+      snippet: |
+        const config = { port: 8080 } as Record<string, number>;
+      token: 'as'
+  - id: ts-accessor
+    name: "`accessor` auto-accessor"
+    since: "4.9"
+    spec: https://www.typescriptlang.org/docs/handbook/release-notes/typescript-4-9.html
+    snippet: |
+      class Person {
+        accessor name = "anonymous";
+      }
+    token: accessor
+    contextual: true
+    baseline:
+      snippet: |
+        class Person {
+          readonly name = "anonymous";
+        }
+      token: 'readonly'
+  - id: ts-override
+    name: "`override` modifier"
+    since: "4.3"
+    spec: https://www.typescriptlang.org/docs/handbook/release-notes/typescript-4-3.html
+    snippet: |
+      class Derived extends Base {
+        override run() {}
+      }
+    token: override
+    contextual: true
+    baseline:
+      snippet: |
+        class Derived extends Base {
+          readonly id = 1;
+        }
+      token: 'readonly'
+  - id: ts-variance-out
+    name: "`out` variance annotation"
+    since: "4.7"
+    spec: https://www.typescriptlang.org/docs/handbook/release-notes/typescript-4-7.html
+    snippet: |
+      interface Box<out T> {
+        value: T;
+      }
+    token: out
+    contextual: true
+    baseline:
+      snippet: |
+        class Person {
+          readonly name = "anonymous";
+        }
+      token: 'readonly'
+  - id: ts-using
+    name: "`using` declaration"
+    since: "5.2"
+    spec: https://www.typescriptlang.org/docs/handbook/release-notes/typescript-5-2.html
+    snippet: |
+      using handle = openFile();
+    token: using
+    contextual: true
+    baseline:
+      snippet: |
+        const handle = openFile();
+      token: 'const'

@@ -1,0 +1,71 @@
+language: javascript
+features:
+  - id: js-private-field
+    name: "private class field `#x`"
+    since: ES2022
+    spec: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Classes/Private_properties
+    snippet: |
+      class Counter {
+        #count = 0;
+        read() {
+          return this.#count;
+        }
+      }
+    token: "#count"
+    baseline:
+      snippet: |
+        class Counter {
+          count = 0;
+          read() {
+            return this.count;
+          }
+        }
+      token: 'count'
+  - id: js-logical-assignment
+    name: "logical assignment `??=`"
+    since: ES2021
+    spec: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Operators/Nullish_coalescing_assignment
+    snippet: |
+      options.retries ??= 3;
+    token: "??="
+    expect: [operator]
+    baseline:
+      snippet: |
+        options.retries += 3;
+      token: '+='
+  - id: js-numeric-separator
+    name: "numeric separator `1_000_000`"
+    since: ES2021
+    spec: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Lexical_grammar#numeric_separators
+    snippet: |
+      const budget = 1_000_000;
+    token: "1_000_000"
+    expect: [number]
+    baseline:
+      snippet: |
+        const budget = 1000000;
+      token: '1000000'
+  - id: js-bigint-literal
+    name: "BigInt literal `9007199254740993n`"
+    since: ES2020
+    spec: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/BigInt
+    snippet: |
+      const big = 9007199254740993n;
+    token: 9007199254740993n
+    expect: [number]
+    baseline:
+      snippet: |
+        const big = 9007199254740993;
+      token: '9007199254740993'
+  - id: js-optional-chaining
+    name: "optional chaining `?.`"
+    since: ES2020
+    spec: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Operators/Optional_chaining
+    snippet: |
+      const city = user?.address?.city;
+    token: "?."
+    expect: [operator]
+    baseline:
+      snippet: |
+        const missing = user === null;
+      token: '==='

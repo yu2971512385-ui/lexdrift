@@ -1,0 +1,72 @@
+language: rust
+features:
+  - id: rust-dyn
+    name: "`dyn Trait`"
+    since: "1.27"
+    spec: https://doc.rust-lang.org/reference/types/trait-object.html
+    snippet: |
+      let handler: Box<dyn Fn()> = Box::new(|| {});
+    token: dyn
+    expect: [keyword]
+    baseline:
+      snippet: |
+        fn handler() -> u8 {
+            0
+        }
+      token: 'fn'
+  - id: rust-async
+    name: "`async fn`"
+    since: "1.39"
+    spec: https://doc.rust-lang.org/reference/items/functions.html#async-functions
+    snippet: |
+      async fn fetch() -> u8 {
+          0
+      }
+    token: async
+    expect: [keyword]
+    baseline:
+      snippet: |
+        fn handler() -> u8 {
+            0
+        }
+      token: 'fn'
+  - id: rust-await
+    name: "postfix `.await`"
+    since: "1.39"
+    spec: https://doc.rust-lang.org/reference/expressions/await-expr.html
+    snippet: |
+      async fn run() {
+          fetch().await;
+      }
+    token: await
+    expect: [keyword]
+    baseline:
+      snippet: |
+        fn handler() -> u8 {
+            0
+        }
+      token: 'fn'
+  - id: rust-c-string
+    name: "C string literal `c\"...\"`"
+    since: "1.77"
+    spec: https://doc.rust-lang.org/reference/tokens.html#c-string-literals
+    snippet: |
+      let name = c"lexdrift";
+    token: 'c"lexdrift"'
+    expect: [string]
+    baseline:
+      snippet: |
+        let raw = b"lexdrift";
+      token: 'b"lexdrift"'
+  - id: rust-raw-string
+    name: "raw string literal `r#\"...\"#`"
+    since: "1.0"
+    spec: https://doc.rust-lang.org/reference/tokens.html#raw-string-literals
+    snippet: |
+      let pattern = r#"a "quoted" value"#;
+    token: 'r#"a "quoted" value"#'
+    expect: [string]
+    baseline:
+      snippet: |
+        let plain = "a value";
+      token: '"a value"'

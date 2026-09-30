@@ -1,0 +1,68 @@
+language: csharp
+features:
+  - id: cs-record
+    name: "`record` type"
+    since: "9.0"
+    spec: https://learn.microsoft.com/dotnet/csharp/language-reference/builtin-types/record
+    snippet: |
+      public record Point(int X, int Y);
+    token: record
+    contextual: true
+    baseline:
+      snippet: |
+        partial class Helper {}
+      token: 'partial'
+  - id: cs-init
+    name: "`init` accessor"
+    since: "9.0"
+    spec: https://learn.microsoft.com/dotnet/csharp/language-reference/keywords/init
+    snippet: |
+      class Config {
+          public int Port { get; init; }
+      }
+    token: init
+    contextual: true
+    baseline:
+      snippet: |
+        partial class Helper {}
+      token: 'partial'
+  - id: cs-required
+    name: "`required` member"
+    since: "11.0"
+    spec: https://learn.microsoft.com/dotnet/csharp/language-reference/keywords/required
+    snippet: |
+      class Config {
+          public required int Port { get; set; }
+      }
+    token: required
+    contextual: true
+    baseline:
+      snippet: |
+        partial class Helper {}
+      token: 'partial'
+  - id: cs-file-modifier
+    name: "`file` access modifier"
+    since: "11.0"
+    spec: https://learn.microsoft.com/dotnet/csharp/language-reference/keywords/file
+    snippet: |
+      file class Helper {}
+    token: file
+    contextual: true
+    baseline:
+      snippet: |
+        partial class Helper {}
+      token: 'partial'
+  - id: cs-raw-string
+    name: "raw string literal `\"\"\"`"
+    since: "11.0"
+    spec: https://learn.microsoft.com/dotnet/csharp/language-reference/tokens/raw-string
+    snippet: |
+      var json = """
+          {"a": 1}
+          """;
+    token: '"""'
+    expect: [string]
+    baseline:
+      snippet: |
+        var json = "{}";
+      token: '"{}"'

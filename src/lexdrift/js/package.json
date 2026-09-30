@@ -1,0 +1,11 @@
+{
+  "name": "lexdrift-js-runner",
+  "private": true,
+  "version": "0.1.0",
+  "description": "Node side of lexdrift: tokenises snippets with JavaScript highlighting libraries",
+  "type": "module",
+  "dependencies": {
+    "highlight.js": "^11.9.0",
+    "prismjs": "^1.29.0"
+  }
+}

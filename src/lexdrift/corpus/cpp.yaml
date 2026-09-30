@@ -1,0 +1,78 @@
+language: cpp
+features:
+  - id: cpp-concept
+    name: "`concept` definition"
+    since: "C++20"
+    spec: https://en.cppreference.com/w/cpp/language/constraints
+    snippet: |
+      template <class T>
+      concept Addable = requires(T a) { a + a; };
+    token: concept
+    expect: [keyword]
+    baseline:
+      snippet: |
+        constexpr int limit = 1;
+      token: 'constexpr'
+  - id: cpp-requires
+    name: "`requires` expression"
+    since: "C++20"
+    spec: https://en.cppreference.com/w/cpp/language/requires
+    snippet: |
+      template <class T>
+      concept Addable = requires(T a) { a + a; };
+    token: requires
+    expect: [keyword]
+    baseline:
+      snippet: |
+        constexpr int limit = 1;
+      token: 'constexpr'
+  - id: cpp-consteval
+    name: "`consteval` function"
+    since: "C++20"
+    spec: https://en.cppreference.com/w/cpp/language/consteval
+    snippet: |
+      consteval int square(int x) { return x * x; }
+    token: consteval
+    expect: [keyword]
+    baseline:
+      snippet: |
+        constexpr int limit = 1;
+      token: 'constexpr'
+  - id: cpp-constinit
+    name: "`constinit` variable"
+    since: "C++20"
+    spec: https://en.cppreference.com/w/cpp/language/constinit
+    snippet: |
+      constinit int counter = 0;
+    token: constinit
+    expect: [keyword]
+    baseline:
+      snippet: |
+        constexpr int limit = 1;
+      token: 'constexpr'
+  - id: cpp-co-await
+    name: "`co_await` expression"
+    since: "C++20"
+    spec: https://en.cppreference.com/w/cpp/language/coroutines
+    snippet: |
+      task<void> poll() {
+          co_await ready();
+      }
+    token: co_await
+    expect: [keyword]
+    baseline:
+      snippet: |
+        constexpr int limit = 1;
+      token: 'constexpr'
+  - id: cpp-module
+    name: "`module` declaration"
+    since: "C++20"
+    spec: https://en.cppreference.com/w/cpp/language/modules
+    snippet: |
+      export module math;
+    token: module
+    contextual: true
+    baseline:
+      snippet: |
+        constexpr int limit = 1;
+      token: 'constexpr'

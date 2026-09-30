@@ -1,0 +1,99 @@
+language: php
+features:
+  - id: php-enum
+    name: "`enum` declaration"
+    since: "8.1"
+    spec: https://www.php.net/manual/en/language.enumerations.php
+    snippet: |
+      <?php
+      enum Suit: string {
+          case Hearts = 'H';
+      }
+    token: enum
+    expect: [keyword]
+    baseline:
+      snippet: |
+        <?php
+        abstract class Suit {}
+      token: 'abstract'
+  - id: php-readonly
+    name: "`readonly` property"
+    since: "8.1"
+    spec: https://www.php.net/manual/en/language.oop5.properties.php#language.oop5.properties.readonly-properties
+    snippet: |
+      <?php
+      class Point {
+          public readonly int $x;
+      }
+    token: readonly
+    expect: [keyword]
+    baseline:
+      snippet: |
+        <?php
+        class Point {
+            public static int $x;
+        }
+      token: 'static'
+  - id: php-never
+    name: "`never` return type"
+    since: "8.1"
+    spec: https://www.php.net/manual/en/language.types.never.php
+    snippet: |
+      <?php
+      function fail(): never {
+          throw new Exception('nope');
+      }
+    token: never
+    expect: [keyword, type, builtin]
+    baseline:
+      snippet: |
+        <?php
+        function fail(): void {
+            throw new Exception("nope");
+        }
+      token: 'void'
+  - id: php-nullsafe
+    name: "nullsafe operator `?->`"
+    since: "8.0"
+    spec: https://www.php.net/manual/en/language.oop5.basic.php#language.oop5.basic.nullsafe
+    snippet: |
+      <?php
+      $city = $user?->address;
+    token: "?->"
+    expect: [operator]
+    baseline:
+      snippet: |
+        <?php
+        $city = $user->address;
+      token: '->'
+  - id: php-match
+    name: "`match` expression"
+    since: "8.0"
+    spec: https://www.php.net/manual/en/control-structures.match.php
+    snippet: |
+      <?php
+      $label = match($code) {
+          200 => 'ok',
+          default => 'other',
+      };
+    token: match
+    expect: [keyword]
+    baseline:
+      snippet: |
+        <?php
+        abstract class Suit {}
+      token: 'abstract'
+  - id: php-arrow-function
+    name: "arrow function `fn`"
+    since: "7.4"
+    spec: https://www.php.net/manual/en/functions.arrow.php
+    snippet: |
+      <?php
+      $double = fn($x) => $x * 2;
+    token: fn
+    expect: [keyword]
+    baseline:
+      snippet: |
+        <?php
+        abstract class Suit {}
+      token: 'abstract'

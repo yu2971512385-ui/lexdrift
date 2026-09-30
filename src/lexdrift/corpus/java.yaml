@@ -1,0 +1,52 @@
+language: java
+features:
+  - id: java-sealed
+    name: "`sealed` class"
+    since: "17"
+    spec: https://openjdk.org/jeps/409
+    snippet: |
+      public sealed interface Shape permits Circle {}
+    token: sealed
+    contextual: true
+    baseline:
+      snippet: |
+        public abstract class Shape {}
+      token: 'abstract'
+  - id: java-permits
+    name: "`permits` clause"
+    since: "17"
+    spec: https://openjdk.org/jeps/409
+    snippet: |
+      public sealed interface Shape permits Circle {}
+    token: permits
+    contextual: true
+    baseline:
+      snippet: |
+        public abstract class Shape {}
+      token: 'abstract'
+  - id: java-record
+    name: "`record` declaration"
+    since: "16"
+    spec: https://openjdk.org/jeps/395
+    snippet: |
+      public record Point(int x, int y) {}
+    token: record
+    contextual: true
+    baseline:
+      snippet: |
+        public abstract class Shape {}
+      token: 'abstract'
+  - id: java-text-block
+    name: "text block `\"\"\"`"
+    since: "15"
+    spec: https://openjdk.org/jeps/378
+    snippet: |
+      String message = """
+          hello
+          """;
+    token: '"""'
+    expect: [string]
+    baseline:
+      snippet: |
+        String message = "hello";
+      token: '"hello"'

@@ -1,0 +1,48 @@
+language: python
+features:
+  - id: py-match
+    name: "`match` statement"
+    since: "3.10"
+    spec: https://peps.python.org/pep-0634/
+    snippet: |
+      match command:
+          case "go":
+              pass
+    token: match
+    contextual: true
+    note: a soft keyword, so leaving a variable named match unstyled is defensible
+
+  - id: py-case
+    name: "`case` clause"
+    since: "3.10"
+    spec: https://peps.python.org/pep-0634/
+    snippet: |
+      match command:
+          case "go":
+              pass
+    token: case
+    contextual: true
+
+  - id: py-type-alias
+    name: "`type` alias statement"
+    since: "3.12"
+    spec: https://peps.python.org/pep-0695/
+    snippet: |
+      type Vector = list[float]
+    token: type
+    contextual: true
+
+  - id: py-walrus
+    name: "assignment expression `:=`"
+    since: "3.8"
+    spec: https://peps.python.org/pep-0572/
+    snippet: |
+      if (size := len(items)) > 3:
+          pass
+    token: ":="
+    expect: [operator]
+    baseline:
+      snippet: |
+        if size == 3:
+            pass
+      token: '=='

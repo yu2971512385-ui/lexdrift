@@ -1,0 +1,47 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "lexdrift"
+version = "0.1.0"
+description = "Find syntax highlighters that never learned your language's newer keywords"
+readme = "README.md"
+requires-python = ">=3.10"
+license = "MIT"
+license-files = ["LICENSE"]
+authors = [{ name = "yu2971512385-ui" }]
+keywords = ["syntax-highlighting", "pygments", "highlight.js", "prism", "testing", "linter"]
+classifiers = [
+  "Development Status :: 4 - Beta",
+  "Environment :: Console",
+  "Intended Audience :: Developers",
+  "Programming Language :: Python :: 3",
+  "Programming Language :: Python :: 3.10",
+  "Programming Language :: Python :: 3.11",
+  "Programming Language :: Python :: 3.12",
+  "Programming Language :: Python :: 3.13",
+  "Topic :: Software Development :: Quality Assurance",
+  "Topic :: Text Processing :: Markup",
+]
+dependencies = ["PyYAML>=6.0", "Pygments>=2.14"]
+
+[project.optional-dependencies]
+pygments = ["Pygments>=2.14"]
+dev = ["pytest>=7.0"]
+
+[project.urls]
+Homepage = "https://github.com/yu2971512385-ui/lexdrift"
+Issues = "https://github.com/yu2971512385-ui/lexdrift/issues"
+
+[project.scripts]
+lexdrift = "lexdrift.cli:main"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.setuptools.package-data]
+lexdrift = ["corpus/*.yaml", "js/*.mjs", "js/package.json"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]

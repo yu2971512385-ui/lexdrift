@@ -1,0 +1,17 @@
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+build/
+dist/
+.venv/
+.pytest_cache/
+
+# Node (the bundled runner's dependencies are installed locally)
+node_modules/
+package-lock.json
+
+# Editors / OS
+.DS_Store
+.idea/
+.vscode/
