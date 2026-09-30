@@ -1,6 +1,6 @@
 """lexdrift -- find syntax highlighters that never learned a language's newer keywords."""
 
-__version__ = "0.1.0"
+__version__ = "0.2.0"
 
 from .check import check, check_feature, check_library  # noqa: F401
 from .corpus import load_corpus  # noqa: F401

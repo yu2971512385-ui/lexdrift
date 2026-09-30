@@ -87,7 +87,8 @@ lexdrift list                             # what is in the corpus
 lexdrift libs                             # which libraries are usable here
 ```
 
-A current run of the bundled corpus lives in [REPORT.md](REPORT.md).
+A current run of the bundled corpus lives in [REPORT.md](REPORT.md), and is
+republished every week at **<https://yu2971512385-ui.github.io/lexdrift/>**.
 
 ## What it found
 
