@@ -52,13 +52,20 @@ def main() -> int:
     # The page carries its own title, so drop the one from the report.
     body = report.split("\n", 1)[1].lstrip("\n") if report.startswith("# ") else report
 
+    # Keep the old date when the numbers have not moved: a weekly commit that
+    # only bumps a timestamp says nothing, and hides the weeks that do matter.
+    when = dt.datetime.now(dt.timezone.utc).strftime("%Y-%m-%d %H:%M")
+    if SITE.is_file():
+        previous = SITE.read_text(encoding="utf-8")
+        if previous.endswith(body):
+            for line in previous.splitlines():
+                if line.startswith("_Last regenerated:"):
+                    when = line.removeprefix("_Last regenerated: ").removesuffix(" UTC._")
+                    break
+
     SITE.parent.mkdir(parents=True, exist_ok=True)
     SITE.write_text(
-        HEADER.format(
-            repo="https://github.com/yu2971512385-ui/lexdrift",
-            when=dt.datetime.now(dt.timezone.utc).strftime("%Y-%m-%d %H:%M"),
-        )
-        + body,
+        HEADER.format(repo="https://github.com/yu2971512385-ui/lexdrift", when=when) + body,
         encoding="utf-8",
     )
     print(f"wrote {SITE.relative_to(ROOT)}")
