@@ -20,7 +20,7 @@ instead, because that is a style choice rather than drift.
 
 Source, corpus and the tool itself: [https://github.com/yu2971512385-ui/lexdrift](https://github.com/yu2971512385-ui/lexdrift).
 
-_Last regenerated: 2026-09-30 08:37 UTC._
+_Last regenerated: 2026-10-01 00:27 UTC._
 
 | library | version | coverage | gaps |
 | --- | --- | --- | --- |
