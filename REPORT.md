@@ -2,7 +2,7 @@
 
 | library | version | coverage | gaps |
 | --- | --- | --- | --- |
-| [ace](https://github.com/ajaxorg/ace) | `1.44.0` | 42% (18/43) | 25 |
+| [ace](https://github.com/ajaxorg/ace) | `1.45.0` | 47% (20/43) | 23 |
 | [chroma](https://github.com/alecthomas/chroma) | `v2.14.0` | 60% (27/45) | 18 |
 | [highlightjs](https://github.com/highlightjs/highlight.js) | `11.12.0` | 80% (32/40) | 8 |
 | [prism](https://github.com/PrismJS/prism) | `1.30.0` | 76% (34/45) | 11 |
@@ -36,8 +36,8 @@
 
 | feature | since | ace | chroma | highlightjs | prism | pygments |
 | --- | --- | --- | --- | --- | --- | --- |
-| [predeclared type `any`](https://go.dev/ref/spec#Predeclared_identifiers) | 1.18 | ❌ | ❌ | ❌ | ❌ | ✅ |
-| [predeclared type `comparable`](https://go.dev/ref/spec#Predeclared_identifiers) | 1.18 | ❌ | ❌ | ❌ | ❌ | ✅ |
+| [predeclared type `any`](https://go.dev/ref/spec#Predeclared_identifiers) | 1.18 | ✅ | ❌ | ❌ | ❌ | ✅ |
+| [predeclared type `comparable`](https://go.dev/ref/spec#Predeclared_identifiers) | 1.18 | ✅ | ❌ | ❌ | ❌ | ✅ |
 | [builtin `clear`](https://go.dev/ref/spec#Clear) | 1.21 | ✅ | ✅ | ❌ | 🟡 | ✅ |
 | [builtin `min`](https://go.dev/ref/spec#Min_and_max) | 1.21 | ✅ | ✅ | ❌ | 🟡 | ✅ |
 | [builtin `max`](https://go.dev/ref/spec#Min_and_max) | 1.21 | ✅ | ✅ | ❌ | 🟡 | ✅ |
