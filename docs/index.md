@@ -20,11 +20,11 @@ instead, because that is a style choice rather than drift.
 
 Source, corpus and the tool itself: [https://github.com/yu2971512385-ui/lexdrift](https://github.com/yu2971512385-ui/lexdrift).
 
-_Last regenerated: 2026-10-19 09:56 UTC._
+_Last regenerated: 2026-10-26 10:10 UTC._
 
 | library | version | coverage | gaps |
 | --- | --- | --- | --- |
-| [ace](https://github.com/ajaxorg/ace) | `1.45.0` | 47% (20/43) | 23 |
+| [ace](https://github.com/ajaxorg/ace) | `1.45.2` | 47% (20/43) | 23 |
 | [chroma](https://github.com/alecthomas/chroma) | `v2.14.0` | 60% (27/45) | 18 |
 | [highlightjs](https://github.com/highlightjs/highlight.js) | `11.12.0` | 80% (32/40) | 8 |
 | [prism](https://github.com/PrismJS/prism) | `1.30.0` | 76% (34/45) | 11 |

@@ -2,7 +2,7 @@
 
 | library | version | coverage | gaps |
 | --- | --- | --- | --- |
-| [ace](https://github.com/ajaxorg/ace) | `1.45.0` | 47% (20/43) | 23 |
+| [ace](https://github.com/ajaxorg/ace) | `1.45.2` | 47% (20/43) | 23 |
 | [chroma](https://github.com/alecthomas/chroma) | `v2.14.0` | 60% (27/45) | 18 |
 | [highlightjs](https://github.com/highlightjs/highlight.js) | `11.12.0` | 80% (32/40) | 8 |
 | [prism](https://github.com/PrismJS/prism) | `1.30.0` | 76% (34/45) | 11 |
